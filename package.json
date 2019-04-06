@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Validates the current git branch name matches company naming policy",
   "main": "index.js",
+  "bin": "cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,5 +28,10 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "dependencies": {
+    "commander": "^2.20.0",
+    "git-branch": "^2.0.1",
+    "jsonfile": "^5.0.0"
   }
 }
