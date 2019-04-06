@@ -102,6 +102,7 @@ module.exports = ( options ) => {
     }
 
     default: {
+      if ( !silent ) { console.error( `Found invalid branch '${currentBranch}'` ); }
       return false;
     }
   }
