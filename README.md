@@ -1,5 +1,7 @@
 # Check git branch name
 
+[![npm version](https://badge.fury.io/js/%40springtree%2Fcheck-git-branch-name.svg)](https://badge.fury.io/js/%40springtree%2Fcheck-git-branch-name)
+
 We use [git flow AVH](https://github.com/petervanderdoes/gitflow-avh) within our company as a git branching strategy.
 This package provided a module to validate the current git branch against that naming policy.
 Recommended use is to perform the check in a [Husky](https://github.com/typicode/husky) prepush hook.
