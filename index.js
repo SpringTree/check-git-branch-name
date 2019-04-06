@@ -8,7 +8,7 @@ const gitBranch = require( 'git-branch' );
  * @param {*} options Check and output options
  */
 module.exports = ( options ) => {
-  const currentBranch = gitBranch.sync();
+  const currentBranch = options.test ? `${options.test}` : gitBranch.sync();
 
   // Check posted options
   //

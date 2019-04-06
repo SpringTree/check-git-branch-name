@@ -22,6 +22,8 @@ program
 
   .option( '-s, --silent', 'Supress console output' )
 
+  .option( '-t, --test <value>', 'Test provided branch name' )
+
   .parse( process.argv );
 
 // Collect options
@@ -29,6 +31,7 @@ program
 const options = {
   silent: program.silent,
   evenReleases: program.evenReleases,
+  test: program.test,
 };
 
 // Validate the branch and exit with success or failure
