@@ -1,6 +1,7 @@
 {
   "name": "@springtree/check-git-branch-name",
   "version": "1.0.0",
+  "private": false,
   "description": "Validates the current git branch name matches company naming policy",
   "main": "index.js",
   "bin": "cli.js",
