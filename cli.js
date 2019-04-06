@@ -20,8 +20,6 @@ program
 
   .option( '-e, --evenReleases', 'Enforce release and hotfix to have even minor versions' )
 
-  .option( '-s, --silent', 'Supress console output' )
-
   .option( '-t, --test <value>', 'Test provided branch name' )
 
   .parse( process.argv );
@@ -29,7 +27,6 @@ program
 // Collect options
 //
 const options = {
-  silent: program.silent,
   evenReleases: program.evenReleases,
   test: program.test,
 };

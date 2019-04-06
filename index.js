@@ -8,12 +8,11 @@ const gitBranch = require( 'git-branch' );
  * @param {*} options Check and output options
  */
 module.exports = ( options ) => {
-  const currentBranch = options.test ? `${options.test}` : gitBranch.sync();
+  const currentBranch = options && options.test ? `${options.test}` : gitBranch.sync();
 
   // Check posted options
   //
   let evenReleases = false;
-  let silent = false;
   if ( options ) {
     // The even releases option also checks that the following branches
     // have even minor versions:
@@ -23,12 +22,6 @@ module.exports = ( options ) => {
     //
     if ( options.evenReleases === true ) {
       evenReleases = true;
-    }
-
-    // Surpress all console output
-    //
-    if ( options.silent === true ) {
-      silent = true;
     }
   }
 
@@ -40,7 +33,7 @@ module.exports = ( options ) => {
   // There should not be more then 1 slash in the path
   //
   if ( branchParts.length > 2 ) {
-    if ( !silent ) { console.error( 'Branch name should only contain 2 parts. Ex: feature/next-best-thing' ); }
+    console.error( 'Branch name should only contain 2 parts. Ex: feature/next-best-thing' );
     return false;
   }
 
@@ -50,33 +43,38 @@ module.exports = ( options ) => {
       // Only exact match allowed
       //
       if ( currentBranch !== rootBranch ) {
-        if ( !silent ) { console.error( `Branch should exactly match '${rootBranch}'` ); }
+        console.error( `Branch should exactly match '${rootBranch}'` );
         return false;
       }
 
-      if ( !silent ) { console.log( `Found valid branch '${currentBranch}'` ); }
+      console.log( `Found valid branch '${currentBranch}'` );
       return true;
     }
 
     case 'experiment':
     case 'feature': {
-      if ( !silent ) { console.log( `Found valid branch '${currentBranch}'` ); }
+      console.log( `Found valid branch '${currentBranch}'` );
       return true;
     }
 
     case 'hotfix': {
+      // Hotfix should have the version after the slash
+      //
       const hotfixVersion = branchParts[1];
-      if ( hotfixVersion.match( /[0-9]*\.[0-9*]*\.[0-9*]/ ) ) {
-        // Optional check minor version is even
-        //
-        const [, minor] = hotfixVersion.split( '.' );
-        if ( !evenReleases || minor / 2 !== 0 ) {
-          if ( !silent ) { console.error( 'Hotfix branch minor version should be even. Ex. hotifx/0.12.1' ); }
-          return false;
-        }
+      if ( !hotfixVersion.match( /[0-9]*\.[0-9*]*\.[0-9*]/ ) ) {
+        console.error( 'Hotfix branch should contain the version. Ex. hotfix/0.12.1' );
+        return false;
       }
 
-      if ( !silent ) { console.log( `Found valid branch '${currentBranch}'` ); }
+      // Optional check minor version is even
+      //
+      const [, minor] = hotfixVersion.split( '.' );
+      if ( evenReleases && minor % 2 !== 0 ) {
+        console.error( 'Hotfix branch minor version should be even. Ex. hotifx/0.12.1' );
+        return false;
+      }
+
+      console.log( `Found valid branch '${currentBranch}'` );
       return true;
     }
 
@@ -85,24 +83,24 @@ module.exports = ( options ) => {
       //
       const releaseName = branchParts[1];
       if ( !releaseName.match( /[0-9]*\.[0-9*]/ ) ) {
-        if ( !silent ) { console.error( 'Release branch should contain the version without the patch level. Ex. release/0.12' ); }
+        console.error( 'Release branch should contain the version without the patch level. Ex. release/0.12' );
         return false;
       }
 
       // Optionally check minor version is even
       //
       const [, minor] = releaseName.split( '.' );
-      if ( !evenReleases || minor / 2 !== 0 ) {
-        if ( !silent ) { console.error( 'Release branch minor version should be even. Ex. release/0.12' ); }
+      if ( evenReleases && minor % 2 !== 0 ) {
+        console.error( 'Release branch minor version should be even. Ex. release/0.12' );
         return false;
       }
 
-      if ( !silent ) { console.log( `Found valid branch '${currentBranch}'` ); }
+      console.log( `Found valid branch '${currentBranch}'` );
       return true;
     }
 
     default: {
-      if ( !silent ) { console.error( `Found invalid branch '${currentBranch}'` ); }
+      console.error( `Found invalid branch '${currentBranch}'` );
       return false;
     }
   }
