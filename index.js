@@ -1,4 +1,25 @@
+// Import all our dependencies
+//
 const gitBranch = require( 'git-branch' );
+const colors = require( 'colors/safe' );
+
+/**
+ * Logs a nicely colored success message
+ *
+ * @param {*} branchName The git branch name
+ */
+const logValidBranch = ( branchName ) => {
+  console.log( `Found ${colors.green( 'valid' )} branch named '${colors.magenta( branchName )}'` );
+};
+
+/**
+ * Logs a nicely colored failure message
+ *
+ * @param {*} branchName The git branch name
+ */
+const logInvalidBranch = ( branchName ) => {
+  console.log( `Found ${colors.red( 'invalid' )} branch named '${colors.magenta( branchName )}'` );
+};
 
 /**
  * This module exports a single function that will return a boolean
@@ -43,17 +64,18 @@ module.exports = ( options ) => {
       // Only exact match allowed
       //
       if ( currentBranch !== rootBranch ) {
+        logInvalidBranch( currentBranch );
         console.error( `Branch should exactly match '${rootBranch}'` );
         return false;
       }
 
-      console.log( `Found valid branch '${currentBranch}'` );
+      logValidBranch( currentBranch );
       return true;
     }
 
     case 'experiment':
     case 'feature': {
-      console.log( `Found valid branch '${currentBranch}'` );
+      logValidBranch( currentBranch );
       return true;
     }
 
@@ -62,6 +84,7 @@ module.exports = ( options ) => {
       //
       const hotfixVersion = branchParts[1];
       if ( !hotfixVersion.match( /[0-9]*\.[0-9*]*\.[0-9*]/ ) ) {
+        logInvalidBranch( currentBranch );
         console.error( 'Hotfix branch should contain the version. Ex. hotfix/0.12.1' );
         return false;
       }
@@ -70,11 +93,12 @@ module.exports = ( options ) => {
       //
       const [, minor] = hotfixVersion.split( '.' );
       if ( evenReleases && minor % 2 !== 0 ) {
+        logInvalidBranch( currentBranch );
         console.error( 'Hotfix branch minor version should be even. Ex. hotifx/0.12.1' );
         return false;
       }
 
-      console.log( `Found valid branch '${currentBranch}'` );
+      logValidBranch( currentBranch );
       return true;
     }
 
@@ -83,6 +107,7 @@ module.exports = ( options ) => {
       //
       const releaseName = branchParts[1];
       if ( !releaseName.match( /[0-9]*\.[0-9*]/ ) ) {
+        logInvalidBranch( currentBranch );
         console.error( 'Release branch should contain the version without the patch level. Ex. release/0.12' );
         return false;
       }
@@ -91,16 +116,17 @@ module.exports = ( options ) => {
       //
       const [, minor] = releaseName.split( '.' );
       if ( evenReleases && minor % 2 !== 0 ) {
+        logInvalidBranch( currentBranch );
         console.error( 'Release branch minor version should be even. Ex. release/0.12' );
         return false;
       }
 
-      console.log( `Found valid branch '${currentBranch}'` );
+      logValidBranch( currentBranch );
       return true;
     }
 
     default: {
-      console.error( `Found invalid branch '${currentBranch}'` );
+      logInvalidBranch( currentBranch );
       return false;
     }
   }
