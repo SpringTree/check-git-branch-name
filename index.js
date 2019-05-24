@@ -52,11 +52,13 @@ module.exports = ( options ) => {
   const rootBranch = branchParts[0];
 
   // There should not be more then 1 slash in the path
+  // Disabled this check for now. I can't find any definitive information about
+  // if multiple parts are allowed or not
   //
-  if ( branchParts.length > 2 ) {
-    console.error( 'Branch name should only contain 2 parts. Ex: feature/next-best-thing' );
-    return false;
-  }
+  // if ( branchParts.length > 2 ) {
+  //   console.error( 'Branch name should only contain 2 parts. Ex: feature/next-best-thing' );
+  //   return false;
+  // }
 
   switch ( rootBranch ) {
     case 'develop':
