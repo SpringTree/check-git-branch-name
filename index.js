@@ -62,7 +62,8 @@ module.exports = ( options ) => {
 
   switch ( rootBranch ) {
     case 'develop':
-    case 'master': {
+    case 'master':
+    case 'main': {
       // Only exact match allowed
       //
       if ( currentBranch !== rootBranch ) {
