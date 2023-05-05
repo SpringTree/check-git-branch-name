@@ -6,7 +6,8 @@
   "main": "index.js",
   "bin": "cli.js",
   "scripts": {
-    "test": "jest --silent --coverage"
+    "test": "jest --silent --coverage",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -20,26 +21,20 @@
   "author": "Mark Doeswijk <mark@springtree.nl> (http://www.springtree.eu)",
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "husky": "^4.2.5",
-    "jest": "^25.5.2"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "node cli.js"
-    }
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^7.0.0",
+    "jest": "^29.5.0"
   },
   "dependencies": {
     "colors": "^1.4.0",
-    "commander": "^5.1.0",
+    "commander": "^10.0.1",
     "git-branch": "^2.0.1",
-    "jsonfile": "^6.0.1"
+    "jsonfile": "^6.1.0"
   }
 }
