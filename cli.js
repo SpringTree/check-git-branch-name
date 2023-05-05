@@ -26,9 +26,11 @@ program
 
 // Collect options
 //
+program.parse();
+const opts = program.opts();
 const options = {
-  evenReleases: program.evenReleases,
-  test: program.test,
+  evenReleases: opts.evenReleases,
+  test: opts.test,
 };
 
 // Validate the branch and exit with success or failure
