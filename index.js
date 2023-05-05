@@ -22,7 +22,7 @@ const logInvalidBranch = ( branchName ) => {
 };
 
 const getCurrentBranchName = () => {
-  const bufferedResponse = childProcess.execSync('git rev-parse --abbrev-ref HEAD');
+  const bufferedResponse = childProcess.execSync('git branch --show-current');
   return bufferedResponse.toString().trim();
 }
 
