@@ -4,7 +4,7 @@
 
 We use [git flow AVH](https://github.com/petervanderdoes/gitflow-avh) within our company as a git branching strategy.
 This package provided a module to validate the current git branch against that naming policy.
-Recommended use is to perform the check in a [Husky](https://github.com/typicode/husky) prepush hook.
+Recommended use is to perform the check in a [Husky](https://github.com/typicode/husky) pre-push hook.
 
 You can install this module in your project:
 
@@ -35,7 +35,7 @@ npx @springtree/check-git-branch-name -t master
 ## SpringTree coding guidelines tool
 
 Our [Coding guidelines](https://github.com/SpringTree/coding-guidelines) repository has a command-line tool we use to install our linting setup.
-It can also be used to install and setip the git branch check:
+It can also be used to install and setup the git branch check:
 
 ```bash
 npx @springtree/coding-guidelines --gitflow
