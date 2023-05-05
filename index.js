@@ -1,7 +1,7 @@
 // Import all our dependencies
 //
-const gitBranch = require( 'git-branch' );
 const colors = require( 'colors/safe' );
+const childProcess = require( 'child_process' );
 
 /**
  * Logs a nicely colored success message
@@ -21,6 +21,11 @@ const logInvalidBranch = ( branchName ) => {
   console.log( `Found ${colors.red( 'invalid' )} branch named '${colors.magenta( branchName )}'` );
 };
 
+const getCurrentBranchName = () => {
+  const bufferedResponse = childProcess.execSync('git rev-parse --abbrev-ref HEAD');
+  return bufferedResponse.toString().trim();
+}
+
 /**
  * This module exports a single function that will return a boolean
  * indicating the branch name is either valid or invalid
@@ -29,7 +34,7 @@ const logInvalidBranch = ( branchName ) => {
  * @param {*} options Check and output options
  */
 module.exports = ( options ) => {
-  const currentBranch = options && options.test ? `${options.test}` : gitBranch.sync();
+  const currentBranch = options && options.test ? `${options.test}` : getCurrentBranchName();
 
   // Check posted options
   //
@@ -48,7 +53,7 @@ module.exports = ( options ) => {
 
   // Collect the branch name and root path
   //
-  const branchParts = currentBranch.split( '/' );
+  const branchParts = `${currentBranch}`.split( '/' );
   const rootBranch = branchParts[0];
 
   // There should not be more then 1 slash in the path
