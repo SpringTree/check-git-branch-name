@@ -22,9 +22,9 @@ const logInvalidBranch = ( branchName ) => {
 };
 
 const getCurrentBranchName = () => {
-  const bufferedResponse = childProcess.execSync('git branch --show-current');
+  const bufferedResponse = childProcess.execSync( 'git branch --show-current' );
   return bufferedResponse.toString().trim();
-}
+};
 
 /**
  * This module exports a single function that will return a boolean
@@ -82,6 +82,7 @@ module.exports = ( options ) => {
     }
 
     case 'experiment':
+    case 'bugfix':
     case 'feature': {
       logValidBranch( currentBranch );
       return true;
@@ -102,7 +103,7 @@ module.exports = ( options ) => {
       const [, minor] = hotfixVersion.split( '.' );
       if ( evenReleases && minor % 2 !== 0 ) {
         logInvalidBranch( currentBranch );
-        console.error( 'Hotfix branch minor version should be even. Ex. hotifx/0.12.1' );
+        console.error( 'Hotfix branch minor version should be even. Ex. hotfix/0.12.1' );
         return false;
       }
 

@@ -13,7 +13,6 @@ describe( 'check-git-branch-name', () => {
     expect( valid ).toEqual( false );
   } );
 
-
   // Unknown branch name
   //
   test( 'invalid nonsense branch', () => {
@@ -56,6 +55,13 @@ describe( 'check-git-branch-name', () => {
   //
   test( 'valid feature branch', () => {
     const valid = checkGitBranchName( { test: 'feature/stuff' } );
+    expect( valid ).toEqual( true );
+  } );
+
+  // Bugfix
+  //
+  test( 'valid feature branch', () => {
+    const valid = checkGitBranchName( { test: 'bugfix/stuff' } );
     expect( valid ).toEqual( true );
   } );
 
